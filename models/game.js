@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-// Импорт модели для связывания
-const categoryModel = require("./category");
-const userModel = require("./user");
+const mongoose = require('mongoose');
+// Не забываем импортировать модель, на которую ссылаемся
+const userModel = require('./user');
+const categoryModel = require('./category');
 
 const gameSchema = new mongoose.Schema({
   title: {
@@ -14,30 +14,26 @@ const gameSchema = new mongoose.Schema({
   },
   developer: {
     type: String,
-    required: true,
+    required: true
   },
   image: {
     type: String,
-    required: true,
+    required: true
   },
   link: {
     type: String,
-    required: true,
+    required: true
   },
-  // Добавляем свойство категории с массивом объектов, в котором укажем
-  // тип ObjectId и ref на существующую модель категорий
-  categories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: categoryModel,
-    },
-  ],
-  users: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: userModel,
-    },
-  ],
+  // Добавляем поле для списка пользователей
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: userModel,
+  }],
+  // Добавляем поле для списка категорий
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: categoryModel,
+  }],
 });
 
-module.exports = mongoose.model("game", gameSchema);
+module.exports = mongoose.model('game', gameSchema);

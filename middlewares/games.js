@@ -5,9 +5,9 @@ const games = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
   // По GET-запросу на эндпоинт /games найдём все документы категорий
-  req.gamesArray = await games.find({});
-  // Выведем в терминал результат поиска 
-  console.log(req.gamesArray);
+  // и с помощью метода populate запросим данные о связанных
+  // категориях и пользователях
+  req.gamesArray = await games.find({}).populate("categories").populate("users");
   next();
 };
 
