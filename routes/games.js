@@ -1,9 +1,10 @@
-const gamesRoute = require("express").Router();
-//const fs = require("fs").promises;
+// Файл routes/games.js
 
-gamesRoute.get("/games", (req, res) => {
-  
+const gamesRouter = require('express').Router();
 
-  });
+const findAllGames = require('../middlewares/games');
+const sendAllGames = require('../controllers/games');
 
-module.exports = gamesRoute;
+gamesRouter.get('/games', findAllGames, sendAllGames);
+
+module.exports = gamesRouter;

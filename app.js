@@ -1,26 +1,25 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
+const path = require('path');
+const usersRouter = require('./routes/users');
+const gamesRouter = require('./routes/games');
+const categoriesRouter = require('./routes/categories');
 
-// Импортируем роутеры
-const mainRoute = require('./routes/main');
-const gamesRouter = require('./routes/games'); 
-const categoriesRoute = require('./routes/categories'); 
-const usersRouter = require('./routes/users'); 
+const connectToDatabase = require('./database/connect');
+const cors = require('./middlewares/cors');
 
-const PORT = 3000;
 const app = express();
+const PORT = 3000;
+
+connectToDatabase();
 
 app.use(
-    bodyParser.json(),
-    express.static(path.join(__dirname, 'public')),
-    mainRoute,
-    gamesRouter,
-    categoriesRoute,
-    usersRouter
-  );  
+  cors, 
+  bodyParser.json(),
+  express.static(path.join(__dirname, 'public')),
+  usersRouter, 
+  gamesRouter, 
+  categoriesRouter
+);
 
-app.listen(PORT, () => {
-    // Если всё работает, консоль покажет, какой порт приложение слушает
-    console.log(`App listening on port ${PORT}`)
-})
+app.listen(PORT);
