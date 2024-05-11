@@ -8,6 +8,9 @@ const {
   findUserById,
   updateUser,
   deleteUser,
+  checkIsUserExists,
+  checkEmptyNameAndEmailAndPassword,
+  checkEmptyNameAndEmail,
 } = require("../middlewares/users");
 const {
   sendAllUsers,
@@ -20,9 +23,21 @@ const {
 // Обрабатываем GET-запрос с роутом '/users'
 usersRouter.get("/users", findAllUsers, sendAllUsers);
 
-usersRouter.post("/users", findAllUsers, createUser, sendUserCreated);
+usersRouter.post(
+  "/users",
+  findAllUsers,
+  checkIsUserExists,
+  checkEmptyNameAndEmailAndPassword,
+  createUser,
+  sendUserCreated
+);
 usersRouter.get("/users/:id", findUserById, sendUserById);
-usersRouter.put("/users/:id", updateUser, sendUserUpdated);
+usersRouter.put(
+  "/users/:id",
+  checkEmptyNameAndEmail,
+  updateUser,
+  sendUserUpdated
+);
 usersRouter.delete("/users/:id", deleteUser, sendUserDeleted);
 // Экспортируем роут для использования в приложении — app.js
 module.exports = usersRouter;

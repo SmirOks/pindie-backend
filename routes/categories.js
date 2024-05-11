@@ -8,6 +8,8 @@ const {
   findCategoryById,
   updateCategory,
   deleteCategory,
+  checkIsCategoryExists,
+  checkEmptyName,
 } = require("../middlewares/categories");
 const {
   sendAllCategories,
@@ -23,12 +25,19 @@ categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
 categoriesRouter.post(
   "/categories",
   findAllCategories,
+  checkIsCategoryExists,
+  checkEmptyName,
   createCategory,
   sendCategoryCreated
 );
 categoriesRouter.get("/categories/:id", findCategoryById, sendCategoryById);
 
-categoriesRouter.put("/categories/:id", updateCategory, sendCategoryUpdated);
+categoriesRouter.put(
+  "/categories/:id",
+  checkEmptyName,
+  updateCategory,
+  sendCategoryUpdated
+);
 categoriesRouter.delete("/categories/:id", deleteCategory, sendCategoryDeleted);
 
 // Экспортируем роут для использования в приложении — app.js
