@@ -5,7 +5,10 @@ res.setHeader('Content-Type', 'application/json');
 // которые подготовим в миддлваре findAllCategories
 res.end(JSON.stringify(req.categoriesArray));
 };
-
+const sendCategoryCreated = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.category));
+};
 // Экспортируем контроллер
-module.exports = sendAllCategories;
+module.exports = {sendAllCategories,sendCategoryCreated};
 

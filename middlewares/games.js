@@ -11,5 +11,15 @@ const findAllGames = async (req, res, next) => {
   next();
 };
 
+const createGame = async (req, res, next) => {
+  console.log("POST /games");
+  try {
+    console.log(req.body);
+    req.game = await games.create(req.body);
+    next();
+  } catch (error) {
+    res.status(400).send("Error creating game");
+  }
+};
 // Экспортируем функцию поиска всех игр
-module.exports = findAllGames;
+module.exports = {findAllGames,createGame};

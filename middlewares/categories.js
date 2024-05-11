@@ -8,6 +8,15 @@ const findAllCategories = async (req, res, next) => {
   req.categoriesArray = await categories.find({});
   next();
 }
-
+const createCategory = async (req, res, next) => {
+  console.log("POST /categories");
+  try {
+    req.category = await categories.create(req.body);
+    next();
+  } catch (error) {
+    res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Ошибка создания категории" }));
+  }
+};
 // Экспортируем функцию поиска всех категорий
-module.exports = findAllCategories;
+module.exports = {findAllCategories,createCategory};
