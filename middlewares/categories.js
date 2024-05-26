@@ -5,7 +5,8 @@ const categories = require('../models/category');
 
 const findAllCategories = async (req, res, next) => {
     // По GET-запросу на эндпоинт /categories найдём все документы категорий
-  req.categoriesArray = await categories.find({});
+    console.log("GET /api/сategories");
+    req.categoriesArray = await categories.find({});
   next();
 }
 const createCategory = async (req, res, next) => {
