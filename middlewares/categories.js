@@ -37,6 +37,7 @@ const updateCategory = async (req, res, next) => {
     req.category = await category.findCategoryById(req.params.id, req.body);
     next();
   } catch (error) {
+    res.setHeader("Content-Type", "application/json");
     res.status(400).send({ message: "Ошибка обновления категории" });
   }
 }; 
