@@ -56,7 +56,8 @@ const updateUser = async (req, res, next) => {
     req.user = await user.findUserById(req.params.id, req.body);
     next();
   } catch (error) {
-    res.status(400).send({ message: "Ошибка обновления " });
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send({ message: "Ошибка обновления пользователя" });
   }
 };
 
