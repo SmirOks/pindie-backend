@@ -53,11 +53,13 @@ const findUserById = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
-    req.user = await user.findUserById(req.params.id, req.body);
+    req.user = await users.findByIdAndUpdate(req.params.id, req.body);
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send({ message: "Ошибка обновления пользователя" });
+    res
+      .status(400)
+      .send(JSON.stringify({ message: "Ошибка обновления пользователя" }));
   }
 };
 
